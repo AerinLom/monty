@@ -7,36 +7,39 @@
  */
 void node_push(stack_t **stack_head, unsigned int num_count)
 {
-	int a = 0;
+	int n = 0;
 
 	int b = 0;
 
-	flag = 0;
-
-	if (move.arg[0] == '-')
-		b++;
-	for (; move.arg[b] != '\0'; b++)
+	int flag = 0;
+	
+	if (move.argument)
 	{
-		if (move.arg[b] > 57 || move.arg[b] < 48)
-			flag = 1;
+		if (move.argument[0] == '-')
+			b++;
+		for (; move.argument[b] != '\0'; b++)
+		{
+			if (move.argument[b] > 57 || move.argument[b] < 48)
+				flag = 1;
+		}
+		if (flag == 1)
+		{ fprintf(stderr, "L%d: usage: push integer\n", num_count);
+			fclose(move.file_type);
+			free(move.information);
+			release_stack(*stack_head);
+			exit(EXIT_FAILURE);
+		}
 	}
-	if (flag == 1)
-	{ fprintf(stderr, "L%d: usage: push integer\n", num_count);
-		fclose(move.file);
-		free(move.content);
-		free_stack(*stack_head);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{ fprintf(stderr, "L%d: usage: push integer\n", num_count);
-		fclose(move.file);
-		free(bus.content);
-		free_stack(*stack_head);
-		exit(EXIT_FAILURE);
-	}
-	a = atoi(move.arg);
-	if (move.lifi == 0)
-		addnode(stack_head, a);
-	else
-		addqueue(stack_head, a);
+		else
+		{ fprintf(stderr, "L%d: usage: push integer\n", num_count);
+			fclose(move.file_type);
+			free(move.information);
+			release_stack(*stack_head);
+			exit(EXIT_FAILURE);
+		}
+		n = atoi(move.argument);
+		if (move.turnstyle == 0)
+			newnode(stack_head, n);
+		else
+			addnew(stack_head, n);
 }

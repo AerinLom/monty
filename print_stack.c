@@ -7,18 +7,17 @@
   *
   */
 
-void print_all(stack_t **stack, unsigned int line_count)
+void print_all(stack_t **stack_head, unsigned int line_count)
 {
+	stack_t *component;
+
 	(void)line_count;
 
-	stack_t *component = *stack;
+	component = *stack_head;
 
-	if (*stack == NULL)
-	{
+	if (component == NULL)
 		return;
-	}
-
-	while (component != NULL)
+	while (component)
 	{
 		printf("%d\n", component->n);
 		component = component->next;
