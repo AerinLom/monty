@@ -35,5 +35,6 @@ typedef struct instruction_s
 } instruction_t;
 
 void node_push(stack_t **head, unsigned int num_count);
-
+void top_pint(stack_t **stack_head, unsigned int num_count);
+void no_nop(stack_t **stack_head, unsigned int num_count);
 #endif
