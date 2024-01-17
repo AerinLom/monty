@@ -14,4 +14,4 @@ void release_stack(stack_t *stack_head)
 		free(stack_head);
 		stack_head = node_node;
 	}
-}	
+}

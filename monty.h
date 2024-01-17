@@ -1,6 +1,7 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -39,21 +40,21 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 /**
- * struct move_a - variables -argument, file_type, information
+ * struct module_s - variables -argument, file_type, information
  * @argument: arg value
  * @file_type: points to monty file type
  * @turnstyle: change stack
  * @information: data in each line 
  * Description: structure of variables
  */
-typedef struct move_a
+typedef struct module_s
 {
 	char *argument;
 	FILE *file_type;
 	char *information;
 	int turnstyle;
-} move_b;
-extern move_b move;
+} module_t;
+extern module_t module;
 
 void node_push(stack_t **head, unsigned int num_count);
 void top_pint(stack_t **stack_head, unsigned int num_count);
@@ -62,5 +63,6 @@ void newnode(stack_t **stack_head, int n);
 void addnew(stack_t **stack_head, int n);
 void release_stack(stack_t *head);
 void print_all(stack_t **stack_head, unsigned int line_count);
+int implement(char *token, stack_t **stack, unsigned int line_number, FILE *file_type);
 
 #endif

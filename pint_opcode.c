@@ -10,8 +10,8 @@ void top_pint(stack_t **stack_head, unsigned int num_count)
 	if (*stack_head == NULL)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", num_count);
-		fclose(move.file_type);
-		free(move.information);
+		fclose(module.file_type);
+		free(module.information);
 		release_stack(*stack_head);
 		exit(EXIT_FAILURE);
 	}

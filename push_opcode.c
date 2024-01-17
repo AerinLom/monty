@@ -12,34 +12,32 @@ void node_push(stack_t **stack_head, unsigned int num_count)
 	int b = 0;
 
 	int flag = 0;
-	
-	if (move.argument)
+
+	if (module.argument)
 	{
-		if (move.argument[0] == '-')
+		if (module.argument[0] == '-')
 			b++;
-		for (; move.argument[b] != '\0'; b++)
+		for (; module.argument[b] != '\0'; b++)
 		{
-			if (move.argument[b] > 57 || move.argument[b] < 48)
+			if (module.argument[b] > 57 || module.argument[b] < 48)
 				flag = 1;
 		}
 		if (flag == 1)
 		{ fprintf(stderr, "L%d: usage: push integer\n", num_count);
-			fclose(move.file_type);
-			free(move.information);
+			fclose(module.file_type);
+			free(module.information);
 			release_stack(*stack_head);
 			exit(EXIT_FAILURE);
 		}
 	}
 		else
 		{ fprintf(stderr, "L%d: usage: push integer\n", num_count);
-			fclose(move.file_type);
-			free(move.information);
+			fclose(module.file_type);
+			free(module.information);
 			release_stack(*stack_head);
 			exit(EXIT_FAILURE);
 		}
-		n = atoi(move.argument);
-		if (move.turnstyle == 0)
+		n = atoi(module.argument);
+		if (module.turnstyle == 0)
 			newnode(stack_head, n);
-		else
-			addnew(stack_head, n);
 }
