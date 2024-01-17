@@ -1,20 +1,24 @@
 #include "monty.h"
 
 /**
-  *implement - Execute Monty ByteCode operation based on opcode
+  *ip - Execute Monty ByteCode operation based on opcode
   *@token: Opcode to execute
   *@stack: Pointer to the stack
   *@line_number: Current line number in the file
   *@file_type: Pointer to the file
+  *Return: 0 if successful, 1 if not.
   */
 
-int implement(char *token, stack_t **stack, unsigned int line_number, FILE *file_type)
+int ip(char *token, stack_t **stack,
+		unsigned int line_number, FILE *file_type)
 {
 	instruction_t instructions[] = {
 		{"push", node_push},
 		{"pall", print_all},
 		{"pint", top_pint},
 		{"nop", no_nop},
+		{"swap", swap_op},
+		{"add", add_op},
 		{NULL, NULL}
 	};
 
@@ -24,7 +28,7 @@ int implement(char *token, stack_t **stack, unsigned int line_number, FILE *file
 	character = strtok(module.information, " \n\t");
 	if (character && character[0] == '#')
 	{
-		return (0);;
+		return (0);
 	}
 
 	module.argument = strtok(NULL, " \n\t");
