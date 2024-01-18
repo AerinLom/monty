@@ -77,12 +77,14 @@ void print_all(stack_t **stack_head, unsigned int line_count)
  */
 void top_pint(stack_t **stack_head, unsigned int num_count)
 {
-	if (!stack_head)
+	stack_t *stack_ptr = *stack_head;
+
+	if (!stack_ptr)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", num_count);
 		close_free(stack_head, EXIT_SUCCESS);
 	}
-	printf("%d\n", (*stack_head)->n);
+	printf("%d\n", stack_ptr->n);
 }
 
 /**
