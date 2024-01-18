@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	size_t len = 0;
 	stack_t *stack = NULL;
 	unsigned int line_number = 0;
-	
+
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
@@ -70,7 +70,7 @@ void newnode(stack_t **stack_head, int n)
 
 	fresh_node = malloc(sizeof(stack_t));
 	if (!fresh_node)
-	{ 
+	{
 		printf("Error\n");
 		exit(0);
 	}
