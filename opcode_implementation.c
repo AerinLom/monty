@@ -14,6 +14,8 @@ int ip(char *token, stack_t **stack,
 {
 	instruction_t instructions[] = {
 		{"push", node_push},
+		{"	push", node_push},
+		{"		push", node_push},
 		{"pall", print_all},
 		{"pint", top_pint},
 		{"pop", pop_sicle},
