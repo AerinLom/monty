@@ -14,6 +14,8 @@ int ip(char *token, stack_t **stack,
 {
 	instruction_t instructions[] = {
 		{"push", node_push},
+		{"	push", node_push},
+		{"		push", node_push},
 		{"pall", print_all},
 		{"pint", top_pint},
 		{"pop", pop_sicle},
@@ -26,12 +28,11 @@ int ip(char *token, stack_t **stack,
 	int count = 0;
 	char *character;
 
-	character = strtok(module.information, " \n\t");
-	if (character && character[0] == '#')
+	character = strtok(module.information, " \t\n");
+	if (character == NULL || character[0] == '#')
 	{
 		return (0);
 	}
-
 	module.argument = strtok(NULL, " \n\t");
 	while (instructions[count].opcode != NULL)
 	{

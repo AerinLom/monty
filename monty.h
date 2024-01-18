@@ -67,5 +67,6 @@ int ip(char *token, stack_t **stack, unsigned int line_number, FILE *file_type);
 void swap_op(stack_t **stack_head, unsigned int line_number);
 void add_op(stack_t **stack_head, unsigned int line_number);
 void pop_sicle(stack_t **stack_head, unsigned int num_count);
+void close_free(stack_t **stack_head,unsigned int exit_code);
 
 #endif

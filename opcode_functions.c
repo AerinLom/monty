@@ -7,41 +7,41 @@
  */
 void node_push(stack_t **stack_head, unsigned int num_count)
 {
-	int n = 0;
+	int n = 0, b;
 
-	int b = 0;
-
-	int flag = 0;
-
-	if (module.argument)
+	if (!module.argument)
 	{
-		if (module.argument[0] == '-')
-			b++;
-		for (; module.argument[b] != '\0'; b++)
+		fprintf(stderr, "L%d: usage: push integer\n", num_count);
+		close_free(stack_head, EXIT_FAILURE);
+	}
+	if (module.argument[0] == '-')
+	{
+		for (b = 1; module.argument[b] != '\0'; b++)
 		{
-			if (module.argument[b] > 57 || module.argument[b] < 48)
-				flag = 1;
-		}
-		if (flag == 1)
-		{ fprintf(stderr, "L%d: usage: push integer\n", num_count);
-			fclose(module.file_type);
-			free(module.information);
-			release_stack(*stack_head);
-			exit(EXIT_FAILURE);
+			if (module.argument[b] > '9' || module.argument[b] < '0')
+			{
+				fprintf(stderr, "L%d: usage: push integer\n", num_count);
+				close_free(stack_head, EXIT_FAILURE);
+			}
 		}
 	}
-		else
-		{ fprintf(stderr, "L%d: usage: push integer\n", num_count);
-			fclose(module.file_type);
-			free(module.information);
-			release_stack(*stack_head);
-			exit(EXIT_FAILURE);
+	else
+	{
+		for (b = 0; module.argument[b] != '\0'; b++)
+		{
+			if (module.argument[b] > '9' || module.argument[b] < '0')
+			{
+				fprintf(stderr, "L%d: usage: push integer\n", num_count);
+				close_free(stack_head, EXIT_FAILURE);
+			}
 		}
-		n = atoi(module.argument);
-		if (module.turnstyle == 0)
-			newnode(stack_head, n);
+	}
+	n = atoi(module.argument);
+	if (module.turnstyle == 0)
+	{
+		newnode(stack_head, n);
+	}
 }
-#include "monty.h"
 
 /**
   *print_all - function that prints the stack
@@ -51,21 +51,19 @@ void node_push(stack_t **stack_head, unsigned int num_count)
 
 void print_all(stack_t **stack_head, unsigned int line_count)
 {
-	stack_t *component;
+	stack_t *current;
 
 	(void)line_count;
 
-	component = *stack_head;
-
-	if (component == NULL)
+	if (!*stack_head)
 		return;
-	while (component)
+
+	for (current = *stack_head; current; current = current->next)
 	{
-		printf("%d\n", component->n);
-		component = component->next;
+		printf("%d\n", current->n);
 	}
 }
-#include "monty.h"
+
 /**
  * top_pint - prints the value at the top of stack
  * @stack_head: stack of the head
@@ -74,17 +72,16 @@ void print_all(stack_t **stack_head, unsigned int line_count)
  */
 void top_pint(stack_t **stack_head, unsigned int num_count)
 {
-	if (*stack_head == NULL)
+	stack_t *stack_ptr = *stack_head;
+
+	if (!stack_ptr)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", num_count);
-		fclose(module.file_type);
-		free(module.information);
-		release_stack(*stack_head);
-		exit(EXIT_FAILURE);
+		close_free(stack_head, EXIT_SUCCESS);
 	}
-	printf("%d\n", (*stack_head)->n);
+	printf("%d\n", stack_ptr->n);
 }
-#include "monty.h"
+
 /**
  * pop_sicle - prints pop to the top
  * @stack_head: stack of the head
@@ -95,19 +92,15 @@ void pop_sicle(stack_t **stack_head, unsigned int num_count)
 {
 	stack_t *component;
 
-	if (*stack_head == NULL)
+	if (!*stack_head)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", num_count);
-		fclose(module.file_type);
-		free(module.information);
-		release_stack(*stack_head);
-		exit(EXIT_FAILURE);
+		close_free(stack_head, EXIT_SUCCESS);
 	}
 	component = *stack_head;
 	*stack_head = component->next;
 	free(component);
 }
-#include "monty.h"
 
 /**
   *swap_op - Swaps the top two elements of the stack.
@@ -119,13 +112,10 @@ void swap_op(stack_t **stack_head, unsigned int line_number)
 {
 	stack_t *temp_node;
 
-	if (*stack_head == NULL || (*stack_head)->next == NULL)
+	if (!*stack_head || !(*stack_head)->next)
 	{
 		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
-		fclose(module.file_type);
-		free(module.information);
-		release_stack(*stack_head);
-		exit(EXIT_FAILURE);
+		close_free(stack_head, EXIT_SUCCESS);
 	}
 	temp_node = (*stack_head)->next;
 	(*stack_head)->next = temp_node->next;
