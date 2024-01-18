@@ -75,15 +75,13 @@ void newnode(stack_t **stack_head, int n)
 		exit(0);
 	}
 
-	fresh_node->n = n;
-	fresh_node->next = *stack_head;
-	fresh_node->prev = NULL;
-
 	if (*stack_head)
 	{
 		(*stack_head)->prev = fresh_node;
 	}
-
+	fresh_node->n = n;
+	fresh_node->next = *stack_head;
+	fresh_node->prev = NULL;
 	*stack_head = fresh_node;
 }
 
