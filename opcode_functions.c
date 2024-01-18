@@ -56,11 +56,14 @@ void print_all(stack_t **stack_head, unsigned int line_count)
 	(void)line_count;
 
 	if (!*stack_head)
+	{
 		return;
+	}
 
-	for (current = *stack_head; current; current = current->next)
+	while (current)
 	{
 		printf("%d\n", current->n);
+		current = current->next;
 	}
 }
 
