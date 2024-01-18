@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 	size_t len = 0;
 	stack_t *stack = NULL;
 	unsigned int line_number = 0;
+	ssize_t read = 1;
 
 	if (argc != 2)
 	{
@@ -32,13 +33,19 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	while (getline(&token, &len, file_type) > 0)
+	while (read > 0)
 	{
+		token = NULL;
+		read = getline(&token, &len, file_type);
 		module.information = token;
 		line_number++;
-		ip(token, &stack, line_number, file_type);
+
+		if (read > 0)
+		{
+			ip(token, &stack, line_number, file_type);
+		}
+		free(token);
 	}
-	free(token);
 	release_stack(stack);
 	fclose(file_type);
 	return (0);
