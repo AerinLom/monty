@@ -75,13 +75,14 @@ void newnode(stack_t **stack_head, int n)
 		exit(0);
 	}
 
+	fresh_node->n = n;
+	fresh_node->next = *stack_head;
+	fresh_node->prev = NULL;
+
 	if (*stack_head)
 	{
 		(*stack_head)->prev = fresh_node;
 	}
-	fresh_node->n = n;
-	fresh_node->next = *stack_head;
-	fresh_node->prev = NULL;
 	*stack_head = fresh_node;
 }
 
@@ -93,9 +94,11 @@ void release_stack(stack_t *stack_head)
 {
 	stack_t *node_node;
 
-	for (node_node = stack_head; stack_head; node_node = stack_head)
+	node_node = stack_head;
+	while (stack_head)
 	{
-		stack_head = stack_head->next;
-		free(node_node);
+		node_node = stack_head->next;
+		free(stack_head);
+		stack_head = node_node;
 	}
 }
