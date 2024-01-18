@@ -55,6 +55,8 @@ void print_all(stack_t **stack_head, unsigned int line_count)
 
 	(void)line_count;
 
+	current = *stack_head;
+
 	if (!*stack_head)
 	{
 		return;
